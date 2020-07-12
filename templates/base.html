@@ -235,5 +235,39 @@ gettime();
             });
         });
 </script>
+<!--script for autocomplete-->
+<script type="text/javascript">
+$(function add_part(){
+        console.log("fn called")
+    var integer = +document.getElementById("hidden_part_count").value;
+    integer+=1;
+    var extra_tags = <div class="row">
+                            <div class="col-sm-4"><label>
+                                Enter Part No and Qty:
+                                </label>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <input class="form-control" id = "part_no" placeholder="part number" name="part_no" type="text" autocomplete="off" required/>
+                                    </div>
+                                </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <input class="form-control" id = "part_qty" placeholder="qty" name="part_gst" type="text" autocomplete="off" required/>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <div class="form-group">
+                                            <button style="margin-top: 4px;" onclick="add_part()">
+                                                <i class="fa fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                  </div>
+    
+    document.getElementById("sale_fieldset").innerHTML += extra_tags
+    document.getElementById("hidden_part_count").value=integer;
+});
+</script>
 </body>
 </html> 
