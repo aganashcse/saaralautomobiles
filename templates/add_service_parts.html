@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+    {% block content %}
+    <div class="container">
+        <div class="row">
+            <a class="navbar-brand" href="/homepage">Click here for home page!</a>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3" style="margin-top: -90px;"> 
+                <div class="login-panel panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Enter Job card Details:</h3>
+                    </div>
+                    <div class="panel-body">
+                        <form role="form" method="POST" action="/bill_generate" id="bill_generate_form">
+                            <fieldset>
+                                <div class="row">
+                                    <div class="col-sm-4"><label>
+                                        Service id:
+                                    </label></div>
+                                    <div class="col-sm-7">
+                                        <div class="form-group">
+                                            <input class="form-control" id = "service_id" placeholder="Service id" name="service_id" type="text" autocomplete="off" required>
+                                        </div>
+                                    </div>
+                                  </div>
+                                  <div class="row">
+                                    <div class="col-sm-4"><label>
+                                        Enter Part No and Qty:
+                                    </label></div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <input class="form-control" id = "part_no" placeholder="part number" name="part_no" type="text" autocomplete="off" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            <input class="form-control" id = "part_qty" placeholder="qty" name="part_gst" type="text" autocomplete="off" required>
+                                        </div>
+                                    </div>
+                                  </div>
+         
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-success btn-block" data-toggle="modal" data-target="#decisionModal">
+    Submit
+  </button>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="decisionModal" tabindex="-1" role="dialog" aria-labelledby="decisionModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="decisionModalLabel">Please confirm..</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+         Are you sure to submit with these details?
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-success" type="submit">Yes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+                                <br/>
+                                <p style="color: red;">{{ msg }}
+                                </p>
+                                <p style="color: red;">{{ msg1 }}
+                                </p>
+                                <input type="hidden" id="arg" name="arg" value="{{arg}}"/>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endblock %}

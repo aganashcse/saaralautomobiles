@@ -136,6 +136,11 @@ def sale():
 def jobcard():
     return render_template('jobcard.html')
 
+@app.route('/add_service_parts', methods=['GET','POST'])
+@flask_login.login_required
+def add_service_parts():
+    return render_template('add_service_parts.html')
+
 @app.route('/stock', methods=['GET'])
 @flask_login.login_required
 def stock():
