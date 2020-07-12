@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+    {% block content %}
+    <div id="wrapper">
+    <div id="page-wrapper">
+    <!-- /.row -->
+    <div class="row">
+        <div class="col-lg-12"><br/>
+            <div class="panel panel-default">
+                <div class="panel-heading" style="text-align: center;">
+                    <i class="fa fa-wrench"></i>   Our Application is still under development for further enhancements
+                </div>
+                <!-- .panel-heading -->
+                <div class="panel-body">
+                    <div class="panel-group" id="accordion">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                        <p style="color: blue;">{{ msg }}
+                                            </p>
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                                            
+                                        Got a minute to share your experience with Saaral Automobiles?(click here)</a>
+                                </h4>
+                            </div>
+                            <div id="collapseOne" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                        We’d love to hear your suggestions/feedback!
+                                        <div class="panel-body">
+                                                <form role="form" method="POST" action="/homepage" id='revw_submit'>
+                                                    <fieldset>
+                                                        <div class="form-group">
+                                                            <input class="form-control" placeholder="Suggestions/Feedback" name="revw" type="text" autofocus required>
+                                                        </div>
+                                                        <div>
+                                                        <button class="btn btn-success" href="javascript:{}" onclick="if(window.alert('Thanks for your valuable feedback!!')); document.getElementById('revw_submit').submit();">Submit</button></div>
+                                                    </fieldset>
+                                                </form>
+                                            </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- .panel-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+    <div class="row">
+            <div class="col-md-12">
+                    <div class="panel panel-default">
+                    <h1 style="text-align: center;">Saaral Automobiles!</h1>
+                    <h4 style="text-align: center">Application that takes care of automobile services and spares sales!</h4>
+                    <h3 style="text-align: center;">Servies:</h3>
+                    <div class="panel-body" style="text-align: center">
+                    <h4>Please select your choice of work below:</h4></div>
+                    {% if current_user.id == "admin" %}
+                    <p style="text-align: center;"><a href="/add_stock" class="btn btn-primary btn-lg" role="button">Add Stock</a>
+                    </p>
+                    {% endif %}
+                    <p style="text-align: center;"><a href="/sale" class="btn btn-primary btn-lg" role="button">Sale</a>
+                    </p>
+                    <p style="text-align: center;"><a href="/jobcard" class="btn btn-primary btn-lg" role="button">JobCard</a>
+                    </p>
+                    <p style="text-align: center;"><a href="/stock" class="btn btn-primary btn-lg" role="button">Show Stock</a>
+                    </p>
+                    </div>
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <!-- /.row -->
+        </div>
+</div>
+<!-- /#page-wrapper -->
+
+</div>
+<!-- /#wrapper -->
+    {% endblock %}
