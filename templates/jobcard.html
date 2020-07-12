@@ -1,0 +1,173 @@
+{% extends 'base.html' %}
+    {% block content %}
+    <div class="container">
+        <div class="row">
+            <a class="navbar-brand" href="/homepage">Click here for home page!</a>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3" style="margin-top: -90px;"> 
+                <div class="login-panel panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Enter Job card Details:</h3>
+                    </div>
+                    <div class="panel-body">
+                        <form role="form" method="POST" action="/bill_generate" id="bill_generate_form">
+                            <fieldset>
+                                <div class="row">
+                                    <div class="col-sm-4"><label>
+                                        Mobile Number:
+                                    </label></div>
+                                    <div class="col-sm-7">
+                                        <div class="form-group">
+                                            <input class="form-control" id = "mobile_number" placeholder="Mobile Number" name="mobile_number" type="text" autocomplete="off" required>
+                                        </div>
+                                    </div>
+                                  </div>
+                                  <div class="row">
+                                    <div class="col-sm-4"><label>
+                                        Customer Name:
+                                    </label></div>
+                                    <div class="col-sm-7">
+                                        <div class="form-group">
+                                            <input class="form-control" id = "customer_name" placeholder="Customer Name" name="customer_name" type="text" autocomplete="off" required>
+                                        </div>
+                                    </div>
+                                  </div>
+                                  <div class="row">
+                                    <div class="col-sm-4"><label>
+                                        Customer Address:
+                                    </label></div>
+                                    <div class="col-sm-7">
+                                        <div class="form-group">
+                                            <input class="form-control" id = "customer_address" placeholder="Door no & street" name="doorno_street" type="text" autocomplete="off" required>
+                                        </div>
+                                    </div>
+                                  </div>
+                                  <div class="row">
+                                    <div class="col-sm-4"><label>
+                                        Customer City:
+                                    </label></div>
+                                    <div class="col-sm-7">
+                                        <div class="form-group">
+                                            <input class="form-control" id = "customer_city" placeholder="Customer City" name="customer_city" type="text" autocomplete="off" required>
+                                        </div>
+                                    </div>
+                                  </div>
+                                  <div class="row">
+                                    <div class="col-sm-4"><label>
+                                        Customer Pincode:
+                                    </label></div>
+                                    <div class="col-sm-7">
+                                        <div class="form-group">
+                                            <input class="form-control" id = "customer_pincode" placeholder="Customer Pincode" name="customer_pincode" type="text" autocomplete="off" required>
+                                        </div>
+                                    </div>
+                                  </div>
+                                  <div class="row">
+                                    <div class="col-sm-4"><label>
+                                        Customer Taluk:
+                                    </label></div>
+                                    <div class="col-sm-7">
+                                        <div class="form-group">
+                                            <input class="form-control" id = "customer_taluk" placeholder="Customer Taluk" name="customer_taluk" type="text" autocomplete="off" required>
+                                        </div>
+                                    </div>
+                                  </div>
+                                  <div class="row">
+                                    <div class="col-sm-4"><label>
+                                        Vehicle No:
+                                    </label></div>
+                                    <div class="col-sm-7">
+                                        <div class="form-group">
+                                            <input class="form-control" id = "vehicle_no" placeholder="vehicle no" name="vehicle_no" type="text" autocomplete="off" required>
+                                        </div>
+                                    </div>
+                                  </div>
+                                  <div class="row">
+                                    <div class="col-sm-4"><label>
+                                        Engine No:
+                                    </label></div>
+                                    <div class="col-sm-7">
+                                        <div class="form-group">
+                                            <input class="form-control" id = "engine_no" placeholder="engine no" name="engine_no" type="text" autocomplete="off" required>
+                                        </div>
+                                    </div>
+                                  </div>
+                                  <div class="row">
+                                    <div class="col-sm-4"><label>
+                                        Chassis No:
+                                    </label></div>
+                                    <div class="col-sm-7">
+                                        <div class="form-group">
+                                            <input class="form-control" id = "chassis_no" placeholder="chassis no" name="chassis_no" type="text" autocomplete="off" required>
+                                        </div>
+                                    </div>
+                                  </div>
+                                  <div class="row">
+                                    <div class="col-sm-4"><label>
+                                        Hours Meter:
+                                    </label></div>
+                                    <div class="col-sm-7">
+                                        <div class="form-group">
+                                            <input class="form-control" id = "hours_meter" placeholder="hours meter" name="hours_meter" type="text" autocomplete="off" required>
+                                        </div>
+                                    </div>
+                                  </div>
+                                  <div class="row">
+                                    <div class="col-sm-4"><label>
+                                        Complaint:
+                                    </label></div>
+                                    <div class="col-sm-7">
+                                        <div class="form-group">
+                                            <textarea rows = "4" class="form-control" id = "complaint" name="complaint" autocomplete="off" required>Enter your Complaints...</textarea>
+                                        </div>
+                                    </div>
+                                  </div>
+                                  <div class="row">
+                                    <div class="col-sm-4"><label>
+                                        Engineer Name:
+                                    </label></div>
+                                    <div class="col-sm-7">
+                                        <div class="form-group">
+                                            <input class="form-control" id = "engineer_name" placeholder="engineer name" name="engineer_name" type="text" autocomplete="off" required>
+                                        </div>
+                                    </div>
+                                  </div>
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-success btn-block" data-toggle="modal" data-target="#decisionModal">
+    Generate Jobcard
+  </button>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="decisionModal" tabindex="-1" role="dialog" aria-labelledby="decisionModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="decisionModalLabel">Please confirm..</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+         Are you sure to generate Jobcard with these details?
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-success" type="submit">Yes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+                                <br/>
+                                <p style="color: red;">{{ msg }}
+                                </p>
+                                <p style="color: red;">{{ msg1 }}
+                                </p>
+                                <input type="hidden" id="arg" name="arg" value="{{arg}}"/>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endblock %}
