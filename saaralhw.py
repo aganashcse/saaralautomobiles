@@ -136,6 +136,13 @@ def sale():
 def jobcard():
     return render_template('jobcard.html')
 
+@app.route('/stock', methods=['GET'])
+@flask_login.login_required
+def stock():
+    all_stock_objects = Stock.find_all()
+    all_stock_dicts = [stock.json() for stock in all_stock_objects]
+    return render_template('stock.html', all_stock_dicts=all_stock_dicts)
+
 @app.route('/logout', methods=['GET', 'POST'])
 @flask_login.login_required
 def logout():

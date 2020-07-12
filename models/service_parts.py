@@ -1,13 +1,15 @@
 from db import db
 
 class ServiceParts(db.Model):
-    __tablename__ = 'customer'
+    __tablename__ = 'service_parts'
     service_id = db.Column(db.Integer)
     part_no = db.Column(db.Integer)
+    quanity = db.Column(db.Integer)
 
-    def __init__(self, service_id, part_no):
+    def __init__(self, service_id, part_no, quanity):
         self.service_id = service_id
         self.part_no = part_no
+        self.quanity = quanity
 
     def insert_to_db(self):
         db.session.add(self)
@@ -19,7 +21,7 @@ class ServiceParts(db.Model):
         db.session.commit()
     
     def json(self):
-        return {"service_id":self.service_id, "part_no":self.part_no}
+        return {"service_id":self.service_id, "part_no":self.part_no, "quantity":self.quanity}
     
     @classmethod
     def find_by_service_id(cls, service_id):
