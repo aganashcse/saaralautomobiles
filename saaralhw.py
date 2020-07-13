@@ -45,12 +45,20 @@ def autocomplete():
         return Response(json.dumps(parts), mimetype='application/json')
     return Response(json.dumps([]), mimetype='application/json')
 
-@app.route('/_oldrecord/<part_no>', methods=['GET'])
+@app.route('/oldrecord/<part_no>', methods=['GET', 'POST'])
 def oldrecord(part_no):
-    if Stock.find_by_part_no(request.form['part_no']):
-        part = list(Stock.find_by_part_no(request.form['part_no']).json())
-        print(parts)
-        return Response(json.dumps(parts), mimetype='application/json')
+    if Stock.find_by_part_no(int(part_no)):
+        part = Stock.find_by_part_no(int(part_no))[0].json()
+        print(part)
+        return Response(json.dumps(part), mimetype='application/json')
+    return Response(json.dumps([]), mimetype='application/json')
+
+@app.route('/is_record_exists/<part_no>/<price>', methods=['GET', 'POST'])
+def is_record_exists(part_no, price):
+    if Stock.find_by_part_no_price(int(part_no), int(price)):
+        part = Stock.find_by_part_no_price(int(part_no), int(price)).json()
+        print(part)
+        return Response(json.dumps(part), mimetype='application/json')
     return Response(json.dumps([]), mimetype='application/json')
 
 @app.route('/_autopart_no', methods=['GET'])
@@ -117,11 +125,14 @@ def add_stock():
         stock = Stock(request.form['part_no'], request.form['part_name'].lower(), request.form['part_price'], request.form['part_vehicle_model'].lower(), request.form['part_quantity'], request.form['part_gst'])
         if Stock.find_by_part_no(request.form['part_no']):
             old_stock = Stock.find_by_part_no(request.form['part_no'])
-            print("found old stock:", old_stock.json())
-            stock.quantity = old_stock.quantity + int(request.form['part_quantity'])
-            print("Stock to be updated:", stock.json())
-            stock.update_record()
-            return render_template('add_stock.html', msg="Record updated! old: "+json.dumps(old_stock.json()), msg1="new: "+json.dumps(stock.json())+" in stock db!")
+            old_stock_list = [stock.json() for stock in old_stock]
+            print("found old stock:", old_stock_list)
+            old_stock_json = json.dumps({"old_stock_list":old_stock_list})
+            if old_stock_list[0]['price'] == int(request.form['part_price']):
+                stock.quantity = Stock.find_by_part_no_price(int(request.form['part_no']), int(request.form['part_price'])).quantity + int(request.form['part_quantity'])
+                print("Stock to be updated:", stock.json())
+                stock.update_record()
+                return render_template('add_stock.html', msg="Record updated! old: "+old_stock_json, msg1="new: "+json.dumps(stock.json())+" in stock db!")
         stock.insert_to_db()
         return render_template('add_stock.html', msg="New record! "+json.dumps(stock.json())+" added to stock db!")
     return render_template('add_stock.html')
@@ -129,7 +140,7 @@ def add_stock():
 @app.route('/sale', methods=['GET','POST'])
 @flask_login.login_required
 def sale():
-    return render_template('sale.html')
+    return render_template('sale_invoice.html')
 
 @app.route('/jobcard', methods=['GET','POST'])
 @flask_login.login_required

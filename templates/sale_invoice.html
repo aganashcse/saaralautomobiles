@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+    {% block content %}
+    <div class="container" >
+        <div class="row">
+                <div class="login-panel panel panel-default" style="margin-top: 0px;">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Enter Stock Details:</h3>
+                    </div>
+                    <div class="panel-body">
+                        <form role="form" method="POST" action="/add_stock" id="stock_add_form">
+                            <fieldset>
+                                <div class="container">
+                                    <div class="row clearfix">
+                                      <div class="col-md-12">
+                                        <table class="table table-bordered table-hover" id="tab_logic">
+                                          <thead>
+                                            <tr>
+                                              <th class="text-center"> # </th>
+                                              <th class="text-center"> Product </th>
+                                              <th class="text-center"> Qty </th>
+                                              <th class="text-center"> Price </th>
+                                              <th class="text-center"> Total </th>
+                                            </tr>
+                                          </thead>
+                                          <tbody>
+                                            <tr id='addr0'>
+                                              <td>1</td>
+                                              <td><input type="text" name='product[]'  placeholder='Enter Product Name' class="form-control"/></td>
+                                              <td><input type="number" name='qty[]' placeholder='Enter Qty' class="form-control qty" step="0" min="0"/></td>
+                                              <td><input type="number" name='price[]' placeholder='Enter Unit Price' class="form-control price" step="0.00" min="0"/></td>
+                                              <td><input type="number" name='total[]' placeholder='0.00' class="form-control total" readonly/></td>
+                                            </tr>
+                                            <tr id='addr1'></tr>
+                                          </tbody>
+                                        </table>
+                                      </div>
+                                    </div>
+                                    <div class="row clearfix">
+                                      <div class="col-md-12">
+                                        <button id="add_row" class="btn btn-default pull-left" type="button">Add Row</button>
+                                        <button id='delete_row' class="pull-right btn btn-default" type="button">Delete Row</button>
+                                      </div>
+                                    </div>
+                                    <div class="row clearfix" style="margin-top:20px">
+                                      <div class="pull-right col-md-4">
+                                        <table class="table table-bordered table-hover" id="tab_logic_total">
+                                          <tbody>
+                                            <tr>
+                                              <th class="text-center">Sub Total</th>
+                                              <td class="text-center"><input type="number" name='sub_total' placeholder='0.00' class="form-control" id="sub_total" readonly/></td>
+                                            </tr>
+                                            <tr>
+                                              <th class="text-center">Tax</th>
+                                              <td class="text-center"><div class="input-group mb-2 mb-sm-0">
+                                                  <input type="number" class="form-control" id="tax" placeholder="0">
+                                                  <div class="input-group-addon">%</div>
+                                                </div></td>
+                                            </tr>
+                                            <tr>
+                                              <th class="text-center">Tax Amount</th>
+                                              <td class="text-center"><input type="number" name='tax_amount' id="tax_amount" placeholder='0.00' class="form-control" readonly/></td>
+                                            </tr>
+                                            <tr>
+                                              <th class="text-center">Grand Total</th>
+                                              <td class="text-center"><input type="number" name='total_amount' id="total_amount" placeholder='0.00' class="form-control" readonly/></td>
+                                            </tr>
+                                          </tbody>
+                                        </table>
+                                      </div>
+                                    </div>
+                                  </div>
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-success btn-block" data-toggle="modal" data-target="#decisionModal" onclick="simple()">
+    Add
+  </button>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="decisionModal" tabindex="-1" role="dialog" aria-labelledby="decisionModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="decisionModalLabel">Please confirm..</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <p id="old_record_confirm" name="old_record_confirm">{}</p>
+            <p id="new_record_confirm" name="new_record_confirm">{}</p>
+         Are you sure to add/modify the details?
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-success" type="submit">Yes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+                                <br/>
+                                <p style="color: red;">{{ msg }}
+                                </p>
+                                <p style="color: red;">{{ msg1 }}
+                                </p>
+                                <input type="hidden" id="arg" name="arg" value="{{arg}}"/>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endblock %}

@@ -4,7 +4,7 @@ class Stock(db.Model):
     __tablename__ = 'stock'
     part_no = db.Column(db.Integer, primary_key=True)
     part_name = db.Column(db.String(50))
-    price = db.Column(db.Integer)
+    price = db.Column(db.Integer, primary_key=True)
     vehicle_model = db.Column(db.String(50))
     quantity = db.Column(db.Integer)
     gst = db.Column(db.Integer)
@@ -31,8 +31,12 @@ class Stock(db.Model):
     
     @classmethod
     def find_by_part_no(cls, part_no):
-        return cls.query.filter_by(part_no=part_no).first()
+        return cls.query.filter_by(part_no=part_no).all()
     
     @classmethod
     def find_all(cls):
         return cls.query.order_by(Stock.part_name).all()
+    
+    @classmethod
+    def find_by_part_no_price(cls, part_no, price):
+        return cls.query.filter_by(part_no=part_no, price=price).first()

@@ -42,7 +42,12 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/fixedheader/3.1.7/css/fixedHeader.bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.5/css/responsive.bootstrap.min.css">
-    
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.2/css/buttons.dataTables.min.css">
+
+    <!--Invoice bootstrap-->
+    <!-- <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"> -->
+
 </head>
 
 <body>
@@ -61,7 +66,6 @@
                     </form>
                     </div>
                     <!-- /.navbar-header -->
-        
                     <ul class="nav navbar-top-links navbar-right">
                         <li>
                             <a href="/help">
@@ -115,7 +119,7 @@
                                 <li><a href="/logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                                 </li>
                                 {% else %}
-                                <li><a href="/login"><i class="fa fa-user fa-fw"></i>
+                                <li><a href="/"><i class="fa fa-user fa-fw"></i>
                                     Login</a>
                                 </li>
                                 {% endif %}
@@ -125,8 +129,98 @@
                         <!-- /.dropdown -->
                     </ul>
                     <!-- /.navbar-top-links -->
+                    
                     <!-- /.navbar-static-side -->
                 </nav>
+                <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0px; margin-right: 450px;">
+                        {% if current_user.is_authenticated %}
+                        <ul class="nav navbar-top-links navbar-left" style="margin-left: 300px; ">
+                        {% if current_user.id == "admin" %}
+                        <!-- /.dropdown -->
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                <i class="fas fa-cubes"></i>
+                                Stock
+                                <i class="fa fa-caret-down"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-user">
+                                <li><a href="/add_stock"><i class="fab fa-stack-overflow"></i>
+                                    Add Stock</a>
+                                </li>
+                                <li class="divider"></li>
+                                <li><a href="/stock"><i class="fas fa-layer-group"></i> Show Stock</a>
+                                </li>
+                            </ul>
+                            <!-- /.dropdown-user -->
+                        </li>
+                        <!-- /.dropdown -->
+                        {% endif %}
+                        <!-- /.dropdown -->
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                <i class="fas fa-cogs"></i></i>
+                                Service
+                                <i class="fa fa-caret-down"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-user">
+                                <li><a href="/add_stock"><i class="fas fa-wrench"></i>
+                                    Add Jobcard</a>
+                                </li>
+                                <li class="divider"></li>
+                                <li><a href="/stock"><i class="fas fa-cog"></i> Show Jobcard</a>
+                                </li>
+                            </ul>
+                            <!-- /.dropdown-user -->
+                        </li>
+                        <!-- /.dropdown -->
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                <i class="fas fa-cart-arrow-down"></i>
+                                Sale
+                                <i class="fa fa-caret-down"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-user">
+                                <li><a href="/sale"><i class="fas fa-share-square"></i>
+                                    Add Sale</a>
+                                </li>
+                                <li class="divider"></li>
+                                <li><a href="/stock"><i class="fas fa-list-ul"></i> Show Sale</a>
+                                </li>
+                            </ul>
+                            <!-- /.dropdown-user -->
+                        </li>
+                        <!-- /.dropdown -->
+                        <!-- /.dropdown -->
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                <i class="fas fa-search"></i>
+                                Search
+                                <i class="fa fa-caret-down"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-user">
+                                <li><a href="/add_stock"><i class="fas fa-search-location"></i>
+                                    Search mobile number</a>
+                                </li>
+                                <li class="divider"></li>
+                                <li><a href="/stock"><i class="fas fa-search-dollar"></i> Search stock</a>
+                                </li>
+                            </ul>
+                            <!-- /.dropdown-user -->
+                        </li>
+                        <!-- /.dropdown -->
+                        <!-- /.dropdown -->
+                        <li class="dropdown">
+                            <input type="search" id="search_base" name="search_base">
+                        </li>
+                        <!-- /.dropdown -->
+                    </ul>                    
+                    {% endif %}
+                </nav>
+                <div class="container">
+                    <div class="row">
+                        <a class="navbar-brand" href="/homepage">Home</a>
+                    </div>
+                </div>
         {% block content %}
         {% endblock %}
         <div class="row">
@@ -149,6 +243,9 @@
 
 <!-- Bootstrap Core JavaScript -->
 <script src="{{ url_for('static', filename='js/bootstrap.min.js')}}"></script>
+
+<!--Fontawesome 6-->
+<script src="https://kit.fontawesome.com/cecafaebc2.js" crossorigin="anonymous"></script>
 
 <!-- Metis Menu Plugin JavaScript -->
 <script src="{{ url_for('static', filename='js/metisMenu.min.js')}}"></script>
@@ -178,29 +275,79 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 <!-- Datatable JS-->
-<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<!-- <script src="https://code.jquery.com/jquery-3.5.1.js"></script> -->
 <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap.min.js"></script>
 <script src="https://cdn.datatables.net/fixedheader/3.1.7/js/dataTables.fixedHeader.min.js"></script>
 <script src="https://cdn.datatables.net/responsive/2.2.5/js/dataTables.responsive.min.js"></script>
 <script src="https://cdn.datatables.net/responsive/2.2.5/js/responsive.bootstrap.min.js"></script>
 
-<!--script for comment date, time pick-->
+<!-- <script src="https://code.jquery.com/jquery-3.5.1.js"></script> -->
+<script src="https://cdn.datatables.net/buttons/1.6.2/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.flash.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.print.min.js"></script>
+
+
+<!--Invoice bootstrap add row feat-->
+<script>
+    $(document).ready(function(){
+    var i=1;
+    $("#add_row").click(function(){b=i-1;
+      	$('#addr'+i).html($('#addr'+b).html()).find('td:first-child').html(i+1);
+      	$('#tab_logic').append('<tr id="addr'+(i+1)+'"></tr>');
+      	i++; 
+  	});
+    $("#delete_row").click(function(){
+    	if(i>1){
+		$("#addr"+(i-1)).html('');
+		i--;
+		}
+		calc();
+	});	
+	$('#tab_logic tbody').on('keyup change',function(){
+		calc();
+	});
+	$('#tax').on('keyup change',function(){
+		calc_total();
+	});
+});
+function calc()
+{
+	$('#tab_logic tbody tr').each(function(i, element) {
+		var html = $(this).html();
+		if(html!='')
+		{
+			var qty = $(this).find('.qty').val();
+			var price = $(this).find('.price').val();
+			$(this).find('.total').val(qty*price);
+			
+			calc_total();
+		}
+    });
+}
+function calc_total()
+{
+	total=0;
+	$('.total').each(function() {
+        total += parseInt($(this).val());
+    });
+	$('#sub_total').val(total.toFixed(2));
+	tax_sum=total/100*$('#tax').val();
+	$('#tax_amount').val(tax_sum.toFixed(2));
+	$('#total_amount').val((tax_sum+total).toFixed(2));
+}
+</script>
+
+
 <script>
 function gettime(){
     document.getElementById("browser_time").value = new Date();
 }
 gettime();
-</script>
-<!--script for Datatable-->
-<script>
-    $(document).ready(function() {
-    var table = $('#stock_table').DataTable( {
-        responsive: true
-    } );
- 
-    new $.fn.dataTable.FixedHeader( table );
-} );
 </script>
 <!--script for autocomplete-->
 <script>
@@ -235,39 +382,39 @@ gettime();
             });
         });
 </script>
-<!--script for autocomplete-->
-<script type="text/javascript">
-$(function add_part(){
-        console.log("fn called")
-    var integer = +document.getElementById("hidden_part_count").value;
-    integer+=1;
-    var extra_tags = <div class="row">
-                            <div class="col-sm-4"><label>
-                                Enter Part No and Qty:
-                                </label>
-                                </div>
-                                <div class="col-sm-3">
-                                    <div class="form-group">
-                                        <input class="form-control" id = "part_no" placeholder="part number" name="part_no" type="text" autocomplete="off" required/>
-                                    </div>
-                                </div>
-                                    <div class="col-sm-3">
-                                        <div class="form-group">
-                                            <input class="form-control" id = "part_qty" placeholder="qty" name="part_gst" type="text" autocomplete="off" required/>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-1">
-                                        <div class="form-group">
-                                            <button style="margin-top: 4px;" onclick="add_part()">
-                                                <i class="fa fa-plus"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                  </div>
-    
-    document.getElementById("sale_fieldset").innerHTML += extra_tags
-    document.getElementById("hidden_part_count").value=integer;
-});
+<script>
+    function get_old_record(){
+    var new_part_details_id = document.getElementById("part_no").value;
+    var new_part_gst = document.getElementById("part_gst").value;
+    var new_part_quantity = document.getElementById("part_quantity").value;
+    var new_part_price = document.getElementById("part_price").value;
+        $.ajax({
+            url: '/oldrecord/'+new_part_details_id
+            }).done(function (data){
+                document.getElementById("old_record_confirm").innerText = "gst:"+data['gst']+" quantity:"+data['quantity']+" price:"+data['price']
+                document.getElementById("new_record_confirm").innerText = "gst:"+new_part_gst+" quantity:+"+new_part_quantity+" price:"+new_part_price
+        });
+    }
 </script>
+<script>
+    $(document).ready(function() {
+    $('#stock_table').DataTable( {
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
+    } );
+} );
+</script>
+<!--script for Datatable-->
+<script>
+    $(document).ready(function() {
+    var table = $('#stock_table').DataTable( {
+        responsive: true
+    } );
+    new $.fn.dataTable.FixedHeader( table );
+} );
+</script>
+
 </body>
 </html> 
