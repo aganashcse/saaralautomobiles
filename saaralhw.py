@@ -80,10 +80,10 @@ def autovehicle_model():
 @app.before_first_request
 def create_tables():
     db.create_all()
-    # stock = Stock(1011, "Engine_oil", 500, "2013", 10, 18)
-    # stock1 = Stock(1012, "Gear_oil", 560, "201", 10, 18)
-    # stock2 = Stock(1013, "Hydraulic_oil_7.5", 600, "des", 10, 18)
-    # stock3 = Stock(1014, "Hydraulic_oil_8", 50, 2013, "10", 18)
+    # stock = Stock(1011, "engine_oil", 500, "2013", 10, 18)
+    # stock1 = Stock(1012, "gear_oil", 560, "201", 10, 18)
+    # stock2 = Stock(1013, "hydraulic_oil_7.5", 600, "des", 10, 18)
+    # stock3 = Stock(1014, "hydraulic_oil_8", 50, 2013, "10", 18)
     # stock.insert_to_db()
     # stock1.insert_to_db()
     # stock2.insert_to_db()
@@ -157,7 +157,9 @@ def add_service_parts():
 def stock():
     all_stock_objects = Stock.find_all()
     all_stock_dicts = [stock.json() for stock in all_stock_objects]
-    return render_template('stock.html', all_stock_dicts=all_stock_dicts)
+    total_price = sum([stock['price'] for stock in all_stock_dicts])
+    total_quantity = sum([stock['quantity'] for stock in all_stock_dicts])
+    return render_template('stock.html', all_stock_dicts=all_stock_dicts, total_price=total_price, total_quantity=total_quantity)
 
 @app.route('/logout', methods=['GET', 'POST'])
 @flask_login.login_required

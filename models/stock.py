@@ -2,6 +2,7 @@ from db import db
 
 class Stock(db.Model):
     __tablename__ = 'stock'
+    s_no = db.Column(db.Integer, primary_key=True, autoincrement=True, unique=True, nullable=False)
     part_no = db.Column(db.Integer, primary_key=True)
     part_name = db.Column(db.String(50))
     price = db.Column(db.Integer, primary_key=True)
@@ -27,7 +28,7 @@ class Stock(db.Model):
         db.session.commit()
     
     def json(self):
-        return {"part_no":self.part_no, "part_name":self.part_name, "price":self.price, "vehicle_model":self.vehicle_model, "quantity": self.quantity, "gst":self.gst}
+        return {"s_no":self.s_no,"part_no":self.part_no, "part_name":self.part_name, "price":self.price, "vehicle_model":self.vehicle_model, "quantity": self.quantity, "gst":self.gst}
     
     @classmethod
     def find_by_part_no(cls, part_no):
@@ -35,7 +36,7 @@ class Stock(db.Model):
     
     @classmethod
     def find_all(cls):
-        return cls.query.order_by(Stock.part_name).all()
+        return cls.query.order_by(Stock.s_no).all()
     
     @classmethod
     def find_by_part_no_price(cls, part_no, price):
