@@ -14,33 +14,39 @@
                                     <th>S.No.</th>
                                     <th>Part Number</th>
                                     <th>Part Name</th>
-                                    <th>Price</th>
                                     <th>Vehicle Model</th>
                                     <th>Quantity</th>
+                                    <th>Price</th>
                                     <th>Gst</th>
+                                    <th>Grand Total</th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {% for stock in all_stock_dicts %}
                                 <tr>
-                                    <td>{{stock['s_no']}}</td>
+                                    <td>{{ loop.index }}</td>
                                     <td>{{stock['part_no']}}</td>
                                     <td>{{stock['part_name']}}</td>
-                                    <td>{{stock['price']}}</td>
                                     <td>{{stock['vehicle_model']}}</td>
                                     <td>{{stock['quantity']}}</td>
+                                    <td>{{stock['price']}}</td>
                                     <td>{{stock['gst']}}</td>
+                                    <td>{{stock['price'] + (stock['price']*stock['gst']/100)}}</td>
+                                    <td><form role="form" method="POST" action="/delete/{{stock['s_no']}}" id="delete_row"><button class="btn btn-danger btn-sm" type="submit">Delete</button></form></td>
                                 </tr>
                                 {% endfor %}
                             </tbody>
                             <tfoot>
                                 <tr>
+                                    <th>Total:{{total_s_no}}</th>
                                     <th></th>
                                     <th></th>
-                                    <th></th>
-                                    <th>Total:{{total_price}}</th>
                                     <th></th>
                                     <th>Total:{{total_quantity}}</th>
+                                    <th>Total:{{total_price}}</th>
+                                    <th></th>
+                                    <th>Total:{{total_grand_total}}</th>
                                     <th></th>
                                 </tr>
                             </tfoot>

@@ -132,7 +132,7 @@
                     
                     <!-- /.navbar-static-side -->
                 </nav>
-                <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0px; margin-right: 450px;">
+                <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0px; margin-right: 350px;">
                         {% if current_user.is_authenticated %}
                         <ul class="nav navbar-top-links navbar-left" style="margin-left: 300px; ">
                         {% if current_user.id == "admin" %}
@@ -216,11 +216,6 @@
                     </ul>                    
                     {% endif %}
                 </nav>
-                <div class="container">
-                    <div class="row">
-                        <a class="navbar-brand" href="/homepage">Home</a>
-                    </div>
-                </div>
         {% block content %}
         {% endblock %}
         <div class="row">
@@ -402,10 +397,22 @@ gettime();
     $('#stock_table').DataTable( {
         dom: 'Bfrtip',
         buttons: [
-        { extend: 'copyHtml5', footer: true },
-        { extend: 'csvHtml5', footer: true }, 
-        { extend: 'excelHtml5', footer: true }, 
-        { extend: 'pdfHtml5', footer: true }, 
+        { extend: 'copyHtml5', footer: true, exportOptions: {
+            columns: 'th:not(:last-child)'
+         }
+        },
+        { extend: 'csvHtml5', footer: true, exportOptions: {
+            columns: 'th:not(:last-child)'
+         } 
+        }, 
+        { extend: 'excelHtml5', footer: true, exportOptions: {
+            columns: 'th:not(:last-child)'
+         } 
+        }, 
+        { extend: 'pdfHtml5', footer: true, exportOptions: {
+            columns: 'th:not(:last-child)'
+         }
+        }
         ]
     } );
 } );
